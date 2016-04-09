@@ -51,43 +51,20 @@ void loop(void)
   if (ahrs.getOrientation(&orientation))
   {
     /* 'orientation' should have valid .roll and .pitch fields */
+	
+	//Creation of the send buffer 
     tempBuffer = "Orientation: ";
     tempBuffer += String(orientation.roll) + " ";
     tempBuffer += String(orientation.pitch) + " ";
     tempBuffer += String(orientation.heading) + char(10);
     tempBuffer.toCharArray(sendBuffer,40);
-    XBee.write(sendBuffer);
-    //XBee.write(char(10));
-
-    Serial.print(sendBuffer);
     
-    //Serial.print(F("Orientation: "));
-    /*
-    Serial.print(orientation.roll);
-    Serial.print(F(" "));
-    Serial.print(orientation.pitch);
-    Serial.print(F(" "));
-    Serial.print(orientation.heading);
-    Serial.println(F(""));
-    */
-  }
+	//Send data
+	XBee.write(sendBuffer);
 
- // Calculate the altitude using the barometric pressure sensor
-  sensors_event_t bmp_event;
-  bmp.getEvent(&bmp_event);
-  if (bmp_event.pressure)
-  {
-    /* Get ambient temperature in C */
-    float temperature;
-    bmp.getTemperature(&temperature);
-    /* Convert atmospheric pressure, SLP and temp to altitude */
-    //Serial.print(F("Alt: "));
-    //Serial.print(bmp.pressureToAltitude(seaLevelPressure, bmp_event.pressure, temperature)); 
-    //Serial.println(F(""));
-    /* Display the temperature */
-    //Serial.print(F("Temp: "));
-   //Serial.print(temperature);
-    //Serial.println(F(""));
+	//Print to serial monitor for testing
+    //Serial.print(sendBuffer);
+
   }
   
   //delay(100);
