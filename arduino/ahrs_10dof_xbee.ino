@@ -54,16 +54,16 @@ void loop(void)
 	
 	//Creation of the send buffer 
     tempBuffer = "Orientation: ";
-    tempBuffer += String(orientation.roll) + " ";
-    tempBuffer += String(orientation.pitch) + " ";
-    tempBuffer += String(orientation.heading) + char(10);
+    tempBuffer += String((int)orientation.roll) + " ";
+    tempBuffer += String((int)orientation.pitch) + " ";
+    tempBuffer += String((int)orientation.heading) + char(10);
     tempBuffer.toCharArray(sendBuffer,40);
     
 	//Send data
 	XBee.write(sendBuffer);
 
 	//Print to serial monitor for testing
-    //Serial.print(sendBuffer);
+    Serial.print(sendBuffer);
 
   }
   
